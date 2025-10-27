@@ -4,50 +4,37 @@
   <meta charset="utf-8">
   <title>Morgan Peas</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+  <!-- If your fonts are custom files, they are loaded in style.css via @font-face -->
+  <!-- If they are available on Google Fonts, include the proper <link> here instead -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
-    <!-- Replace these with your drawings as <img class="doodle top-left" src="graphics/doodle-1.png" alt=""> -->
-    <div class="doodle top-left" aria-hidden="true"></div>
-    <div class="doodle top-right" aria-hidden="true"></div>
-    <div class="doodle bottom-left" aria-hidden="true"></div>
-    <div class="doodle bottom-right" aria-hidden="true"></div>
+  <!-- Header text -->
+  <header class="site-header">
+    <h1 class="title">Morgan Peas</h1>
+    <p class="tagline">is a data analyst and occasional film photographer</p>
+  </header>
 
-    <header class="site-header">
-      <h1 class="title">Morgan Peas</h1>
-      <p class="tagline">is a data analyst and occasional film photographer</p>
-    </header>
+  <!-- Optional drawing placeholders (replace with your actual drawings or remove) -->
+  <div class="doodle top-left" aria-hidden="true"></div>
+  <div class="doodle top-right" aria-hidden="true"></div>
+  <div class="doodle bottom-left" aria-hidden="true"></div>
+  <div class="doodle bottom-right" aria-hidden="true"></div>
 
-    <section class="grid" aria-label="photo-collage">
-      <figure class="polaroid item1">
-        <a class="img-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img src="images/photo-1.jpg" alt="Photography by Morgan Peas">
-        </a>
-      </figure>
-      <figure class="polaroid item2">
-        <a class="img-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img src="images/photo-2.jpg" alt="Photography by Morgan Peas">
-        </a>
-      </figure>
-      <figure class="polaroid item3">
-        <a class="img-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img src="images/photo-3.jpg" alt="Photography by Morgan Peas">
-        </a>
-      </figure>
-      <figure class="polaroid item4">
-        <a class="img-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img src="images/photo-4.jpg" alt="Photography by Morgan Peas">
-        </a>
-      </figure>
-    </section>
-
-    <nav class="links" aria-label="site-links">
-      <a class="btn" href="about.html">About</a>
-      <a class="btn" href="instagram.html">Instagram</a>
-    </nav>
-  </div>
+  <!-- Photo layout: four images, no borders/backgrounds, each links to IG -->
+  <main class="grid" aria-label="photo-layout">
+    <a class="photo item1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo-1.jpg" alt="Photography by Morgan Peas">
+    </a>
+    <a class="photo item2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo-2.jpg" alt="Photography by Morgan Peas">
+    </a>
+    <a class="photo item3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo-3.jpg" alt="Photography by Morgan Peas">
+    </a>
+    <a class="photo item4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo-4.jpg" alt="Photography by Morgan Peas">
+    </a>
+  </main>
 </body>
 </html>
