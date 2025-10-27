@@ -4,36 +4,41 @@
   <meta charset="utf-8">
   <title>Morgan Peas</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <!-- If your fonts are custom files, they are loaded in style.css via @font-face -->
-  <!-- If they are available on Google Fonts, include the proper <link> here instead -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header text -->
+  <!-- Header: small image logo + tagline -->
   <header class="site-header">
-    <h1 class="title">Morgan Peas</h1>
+    <img class="header-logo" src="images/photo_5.jpg" alt="Morgan Peas">
     <p class="tagline">is a data analyst and occasional film photographer</p>
   </header>
 
-  <!-- Optional drawing placeholders (replace with your actual drawings or remove) -->
+  <!-- Optional drawing placeholders (remove or replace with your graphics) -->
   <div class="doodle top-left" aria-hidden="true"></div>
   <div class="doodle top-right" aria-hidden="true"></div>
   <div class="doodle bottom-left" aria-hidden="true"></div>
   <div class="doodle bottom-right" aria-hidden="true"></div>
 
-  <!-- Photo layout: four images, no borders/backgrounds, each links to IG -->
-  <main class="grid" aria-label="photo-layout">
-    <a class="photo item1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="images/photo-1.jpg" alt="Photography by Morgan Peas">
+  <!-- Collage: 4 images, uneven/off-centered, with overlap -->
+  <main class="collage" aria-label="photo-collage">
+    <!-- Photo 1: vertical, big -->
+    <a class="ph ph1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo_1.jpg" alt="Photography by Morgan Peas 1">
     </a>
-    <a class="photo item2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="images/photo-2.jpg" alt="Photography by Morgan Peas">
+
+    <!-- Photo 2: horizontal, overlaps photo 3 -->
+    <a class="ph ph2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo_2.jpg" alt="Photography by Morgan Peas 2">
     </a>
-    <a class="photo item3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="images/photo-3.jpg" alt="Photography by Morgan Peas">
+
+    <!-- Photo 3: vertical, big (under photo 2) -->
+    <a class="ph ph3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo_3.jpg" alt="Photography by Morgan Peas 3">
     </a>
-    <a class="photo item4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="images/photo-4.jpg" alt="Photography by Morgan Peas">
+
+    <!-- Photo 4: smaller -->
+    <a class="ph ph4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
+      <img src="images/photo_4.jpg" alt="Photography by Morgan Peas 4">
     </a>
   </main>
 </body>
