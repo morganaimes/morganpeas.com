@@ -37,15 +37,14 @@ html, body {
   opacity: 0.9;
 }
 
-/* Three equal columns with uniform gaps */
+/* Force the middle column to be a single fixed-height column with two fixed-height cards, no extra space */
 .tri-grid {
   display: grid;
   grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
-  gap: var(--gutter);           /* controls horizontal and (if needed) row gaps */
+  column-gap: var(--gutter);
+  row-gap: 0; /* grid rows shouldn't add extra vertical space */
   justify-content: center;
   align-items: start;
-  padding: 8px 10px 20px;
-  margin: 0 auto;
 }
 
 /* Each card anchor sized like a playing card */
@@ -78,15 +77,17 @@ html, body {
   object-fit: contain;
 }
 
-/* Middle column: strict 12px vertical gap */
+/* Middle column is its own fixed-height grid: two rows, each exactly card height, with a 12px gap */
 .middle-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gutter);     /* exact 12px between stacked cards */
+  display: grid !important;
+  grid-template-rows: var(--card-h) var(--card-h);
+  row-gap: var(--gutter);
+  justify-items: center;
+  align-items: start;
+  height: calc(var(--card-h) * 2 + var(--gutter)); /* exact total height */
 }
 
-/* Remove any extra margins on children that could add space */
+/* Ensure children do not introduce margins */
 .middle-stack > * {
   margin: 0 !important;
 }
