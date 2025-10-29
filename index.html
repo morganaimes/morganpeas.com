@@ -1,4 +1,3 @@
-<!-- index.html () -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,31 +10,126 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{
+      --bg: #dcd2bc;
+      --text: #111;
+      --gutter: 16px;
+      --overlap: 5%;
+      --card-w: 240px;     /* ~playing card width */
+      --card-h: 336px;     /* ~playing card height */
+      --quarter: 92px;     /* ~US quarter diameter on screen */
+      --focus: 2px solid #0a66c2;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--bg); color: var(--text);
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight: 300; line-height: 1.4; height: 100%;
+    }
+    .container, .site { max-width: 1100px; margin: 0 auto; padding: 16px; text-align: center; }
+    .skip-link { position: absolute; left: -9999px; top: -9999px; }
+    .skip-link:focus {
+      position: static; margin: 8px; padding: 8px 12px; background: #fff; color: #000; border: 1px solid #000; z-index: 1000;
+    }
+    .visually-hidden {
+      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+    .site-header { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+    .site-title { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: 0.5px; }
+    .site-subtitle { margin: 2px 0 12px 0; font-size: clamp(14px, 2vw, 18px); opacity: 0.9; }
+    .hero-photo {
+      width: var(--quarter); height: var(--quarter);
+      display: block; margin: 8px auto 18px auto; object-fit: contain; border: 0;
+    }
+    .card-row {
+      display: flex; justify-content: center; align-items: flex-start;
+      gap: var(--gutter); flex-wrap: nowrap; margin-top: 8px;
+    }
+    .card {
+      width: var(--card-w); height: var(--card-h);
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; border-radius: 6px; overflow: hidden; background: transparent; position: relative;
+    }
+    .photo-4 { margin-left: calc(-1 * var(--overlap)); z-index: 2; }
+    .photo-2 { margin-right: calc(-1 * var(--overlap)); z-index: 2; }
+    .card img {
+      max-width: 100%; max-height: 100%;
+      width: auto !important; height: auto !important;
+      object-fit: contain; transform: none; display: block;
+    }
+    a:focus-visible, .card:focus-visible, .skip-link:focus-visible {
+      outline: var(--focus); outline-offset: 3px; border-radius: 6px;
+    }
+    .card:hover { filter: brightness(0.98) contrast(1.02); }
+    @media (max-height: 800px) {
+      .container, .site { padding-top: 12px; padding-bottom: 12px; }
+      .site-subtitle { margin-bottom: 6px; }
+      .hero-photo { margin-bottom: 12px; }
+    }
+    @media (max-width: 1200px) { .card-row { gap: 12px; } }
+    @media (max-width: 900px)   { .card-row { flex-wrap: wrap; } .photo-4, .photo-2 { margin: 0; } }
+  </style>
 </head>
 <body>
-  <main class="site">
-    <header class="site-header">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container">
       <h1 class="site-title">Morgan Peas</h1>
       <p class="site-subtitle">is a data analyst and sometimes film photographer</p>
-      <!-- Photo 5 centered, quarter-sized -->
-      <img class="hero-photo" src="photo_5.png" alt="">
-    </header>
+      <!-- Photo 5 (decorative). If you want it announced, add a short alt like alt="Circular badge image" -->
+      <img class="hero-photo" src="photo_5.png" alt="small image of the Spanish delicacy, Roscon de Reyes" />
+    </div>
+  </header>
 
-    <!-- Four playing-card-sized photos; no words/captions on images -->
-    <section class="card-row">
-      <a class="card photo-1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-        <img src="photo_1.jpg" alt="">
+  <main id="main" class="site" role="main">
+    <!-- Hidden heading for screen readers -->
+    <h2 class="visually-hidden" id="gallery-heading">Featured photos</h2>
+    <!-- Optional gallery description: add context for SRs only -->
+    <!-- <p id="gallery-desc" class="visually-hidden">Four featured photos linking to Instagram posts, with slight overlaps for design.</p> -->
+
+    <section class="card-row" role="list" aria-labelledby="gallery-heading" aria-describedby="gallery-desc">
+      <!-- Photo 1 -->
+      <a class="card photo-1" role="listitem"
+         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+         aria-describedby="photo1-desc">
+        <img src="photo_1.jpg" alt="beautiful dead rat floating in London canal" />
       </a>
-      <a class="card photo-2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-        <img src="photo_2.jpg" alt="">
+      <span id="photo1-desc" class="visually-hidden">
+        This photo was taken on a film camera along the canal in London. It is vertical, with plants in the top left corner and the canal running through the photo from the bottom right corner. The canal is dark grey/blue. A dead rat is floating in a ballerina style pose. It is beautiful.
+      </span>
+
+      <!-- Photo 2 -->
+      <a class="card photo-2" role="listitem"
+         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+         aria-describedby="photo2-desc">
+        <img src="photo_2.jpg" alt="blurry dj deck" />
       </a>
-      <a class="card photo-3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-        <img src="photo_3.jpg" alt="">
+      <span id="photo2-desc" class="visually-hidden">
+        A friend was djing at a dark bakery in London. This photo is of the dj deck and was taken with a long exposure so the lights and buttons are longer than natrual and distorted.
+      </span>
+
+      <!-- Photo 3 -->
+      <a class="card photo-3" role="listitem"
+         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+         aria-describedby="photo3-desc">
+        <img src="photo_3.jpg" alt="double exposure of bridge architecture and jacket with fringe" />
       </a>
-      <a class="card photo-4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-        <img src="photo_4.jpg" alt="">
+      <span id="photo3-desc" class="visually-hidden">
+        This picture is a double exposure with 2 images superimposed over each other. Both were taken on the Brooklyn bridge. The first is of the bridge arches and the other is of a fringe jacket. The jacket fringe mixes with the bridge wires. 
+      </span>
+
+      <!-- Photo 4 -->
+      <a class="card photo-4" role="listitem"
+         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+         aria-describedby="photo4-desc">
+        <img src="photo_4.jpg" alt="Death Valley" />
       </a>
+      <span id="photo4-desc" class="visually-hidden">
+        This is a picture taken of The Artists Pallet in Death Valley, California. It's a bright sunny day and a picture of the mountain. Colors are very bright and include browns and greens. 
+      </span>
     </section>
   </main>
 </body>
