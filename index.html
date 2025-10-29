@@ -20,50 +20,52 @@
     <div class="container">
       <h1 class="site-title">Morgan Peas</h1>
       <p class="site-subtitle">is a data analyst and sometimes film photographer</p>
-      <img class="hero-photo" src="photo_5.png" alt="small image of the Spanish delicacy, Roscon de Reyes" />
     </div>
   </header>
 
-  <main id="main" class="site" role="main">
-    <h2 class="visually-hidden" id="gallery-heading">Featured photos</h2>
+  <!-- Stage: photo_5 as background, photos_1–4 overlaid -->
+  <main id="main" class="stage" role="main" aria-labelledby="gallery-heading">
+    <h2 class="visually-hidden" id="gallery-heading">Featured photos over background</h2>
 
-    <section class="tri-grid" role="list" aria-labelledby="gallery-heading">
-      <!-- Left -->
-      <a class="card-link" role="listitem"
-         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
-         aria-describedby="photo1-desc">
-        <img class="card-img" src="photo_1.jpg" alt="beautiful dead rat floating in London canal" />
-      </a>
-      <span id="photo1-desc" class="visually-hidden">
-        This photo was taken on a film camera along the canal in London. It is vertical, with plants in the top left corner and the canal running through the photo from the bottom right corner. The canal is dark grey/blue. A dead rat is floating in a ballerina style pose. It is beautiful.
-      </span>
+    <!-- Background (photo_5) -->
+    <img class="bg" src="photo_5.png" alt="" aria-hidden="true" />
 
-      <!-- Middle (stacked) -->
-      <div class="middle-stack" role="listitem" aria-describedby="photo2-desc photo4-desc">
-        <a class="card-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img class="card-img" src="photo_2.jpg" alt="blurry dj deck" />
-        </a>
-        <a class="card-link" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-          <img class="card-img" src="photo_4.jpg" alt="Death Valley" />
-        </a>
-      </div>
-      <span id="photo2-desc" class="visually-hidden">
-        A friend was djing at a dark bakery in London. This photo is of the dj deck and was taken with a long exposure so the lights and buttons are longer than natural and distorted.
-      </span>
-      <span id="photo4-desc" class="visually-hidden">
-        This is a picture taken of The Artists Pallet in Death Valley, California. It's a bright sunny day and a picture of the mountain. Colors are very bright and include browns and greens.
-      </span>
+    <!-- Overlaid cards (perfectly straight). Adjust hrefs as needed -->
+    <a class="card-link card-1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+       aria-describedby="photo1-desc">
+      <img class="card-img" src="photo_1.jpg" alt="beautiful dead rat floating in London canal" />
+    </a>
+    <span id="photo1-desc" class="visually-hidden">
+      This photo was taken on a film camera along the canal in London. It is vertical, with plants in the top left corner and the canal running through the photo from the bottom right corner. The canal is dark grey/blue. A dead rat is floating in a ballerina style pose. It is beautiful.
+    </span>
 
-      <!-- Right -->
-      <a class="card-link" role="listitem"
-         href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
-         aria-describedby="photo3-desc">
-        <img class="card-img" src="photo_3.jpg" alt="double exposure of bridge architecture and jacket with fringe" />
-      </a>
-      <span id="photo3-desc" class="visually-hidden">
-        This picture is a double exposure with 2 images superimposed over each other. Both were taken on the Brooklyn bridge. The first is of the bridge arches and the other is of a fringe jacket. The jacket fringe mixes with the bridge wires.
-      </span>
-    </section>
+    <a class="card-link card-2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+       aria-describedby="photo2-desc">
+      <img class="card-img" src="photo_2.jpg" alt="blurry dj deck" />
+    </a>
+    <span id="photo2-desc" class="visually-hidden">
+      A friend was djing at a dark bakery in London. This photo is of the dj deck and was taken with a long exposure so the lights and buttons are longer than natural and distorted.
+    </span>
+
+    <a class="card-link card-3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+       aria-describedby="photo3-desc">
+      <img class="card-img" src="photo_3.jpg" alt="double exposure of bridge architecture and jacket with fringe" />
+    </a>
+    <span id="photo3-desc" class="visually-hidden">
+      This picture is a double exposure with 2 images superimposed over each other. Both were taken on the Brooklyn bridge. The first is of the bridge arches and the other is of a fringe jacket. The jacket fringe mixes with the bridge wires.
+    </span>
+
+    <a class="card-link card-4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener"
+       aria-describedby="photo4-desc">
+      <img class="card-img" src="photo_4.jpg" alt="Death Valley" />
+    </a>
+    <span id="photo4-desc" class="visually-hidden">
+      This is a picture taken of The Artists Pallet in Death Valley, California. It's a bright sunny day and a picture of the mountain. Colors are very bright and include browns and greens.
+    </span>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2025 Morgan Peas</p>
+  </footer>
 </body>
 </html>
