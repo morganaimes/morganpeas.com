@@ -4,16 +4,17 @@
 :root {
   --bg: #dcd2bc;
   --text: #111;
-  --gutter: 12px;     /* uniform spacing everywhere */
+  --gutter: 12px;
   --card-w: 240px;
   --card-h: 336px;
-  --quarter: 92px;    /* 92x92 for the small chip image */
+  --quarter: 92px;
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 }
 
+/* Base */
 html, body {
-  font-size: 12pt; /* enforce 12pt */
+  font-size: 12pt;
   background: var(--bg);
   color: var(--text);
   font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -22,44 +23,45 @@ html, body {
   text-align: center;
 }
 
-.site-header {
-  padding: 12px 10px 4px;
+.site-header { padding: 12px 10px 4px; }
+.site-title { font-size: 1.125rem; margin: 0 0 2px 0; }
+.site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
+
+/* NEW: Stage with background (photo_5) and overlaid cards (photos_1–4) */
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.site-title {
-  font-size: 1.125rem;
-  margin: 0 0 2px 0;
+/* Make photo_5 the full-bleed background image inside .stage */
+.stage .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* use 'contain' if you must see the entire image without cropping */
+  z-index: 0;
+  pointer-events: none;
 }
 
-.site-subtitle {
-  font-size: 0.9rem;
-  margin: 0;
-  opacity: 0.9;
-}
-
-/* Force the middle column to be a single fixed-height column with two fixed-height cards, no extra space */
-.tri-grid {
-  display: grid;
-  grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
-  column-gap: var(--gutter);
-  row-gap: 0; /* grid rows shouldn't add extra vertical space */
-  justify-content: center;
-  align-items: start;
-}
-
-/* Each card anchor sized like a playing card */
+/* Overlaid cards for photos_1–4 */
 .card-link {
+  position: absolute;           /* changed from inline-flex to absolute for overlay */
+  width: var(--card-w);
+  height: var(--card-h);
   display: inline-flex;
-  width: var(--card-w) !important;
-  height: var(--card-h) !important;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: var(--radius);
   text-decoration: none;
   background: transparent;
-  line-height: 0; /* remove inline whitespace */
+  line-height: 0;
   outline: none;
+  z-index: 2;
+  transform: translate(-50%, -50%); /* position by center point */
 }
 
 .card-link:focus-visible {
@@ -69,73 +71,22 @@ html, body {
 
 /* Image inside the card */
 .card-img {
-  display: block;         /* removes inline-img bottom gap */
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Middle column is its own fixed-height grid: two rows, each exactly card height, with a 12px gap */
-.middle-stack {
-  display: grid !important;
-  grid-template-rows: var(--card-h) var(--card-h);
-  row-gap: var(--gutter);
-  justify-items: center;
-  align-items: start;
-  height: calc(var(--card-h) * 2 + var(--gutter)); /* exact total height */
-}
-
-/* Ensure children do not introduce margins */
-.middle-stack > * {
-  margin: 0 !important;
-}
-
-/* Right column container for chip */
-.right-stack {
-  position: relative;
-  width: var(--card-w);
-  height: var(--card-h);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-/* Position the main right card as the base layer */
-.right-stack > .card-link {
-  position: absolute;
-  inset: 0; /* fill the container */
-}
-
-/* Quarter-sized chip image anchored bottom-right with uniform offsets */
-.chip-link {
-  position: absolute;
-  right: var(--gutter);
-  bottom: var(--gutter);
-  width: var(--quarter);
-  height: var(--quarter);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: calc(var(--radius) - 2px);
-  overflow: hidden;
-  text-decoration: none;
-  background: transparent;
-  outline: none;
-}
-
-.chip-link:focus-visible {
-  outline: var(--focus);
-  outline-offset: 2px;
-}
-
-.chip-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* use 'contain' if you don’t want cropping */
 }
+
+/* Position each photo over its drawn number - TWEAK these percentages in DevTools */
+.card-1 { top: 22%; left: 28%; rotate: -3deg; }
+.card-2 { top: 40%; left: 63%; rotate: 2deg; }
+.card-3 { top: 68%; left: 35%; rotate: -1.5deg; }
+.card-4 { top: 72%; left: 75%; rotate: 3deg; }
+
+/* Optional: small sticker/badge (photo_5 as chip not needed now because it's the background)
+.chip-link { ... }
+.chip-img  { ... }
+*/
 
 /* Visually hidden text for accessibility */
 .visually-hidden {
@@ -151,21 +102,15 @@ html, body {
   border: 0 !important;
 }
 
-.site-footer {
-  font-size: 0.85rem;
-  padding: 10px;
-  opacity: 0.9;
-}
+.site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
 
-/* Responsive: stack columns on narrow screens */
+/* Responsive scaling of card size */
+@media (max-width: 1200px) {
+  :root { --card-w: 200px; --card-h: 280px; }
+}
 @media (max-width: 900px) {
-  .tri-grid {
-    grid-template-columns: 1fr;
-    gap: var(--gutter);
-  }
-  .right-stack {
-    width: var(--card-w);
-    height: var(--card-h);
-    margin: 0 auto;
-  }
+  :root { --card-w: 168px; --card-h: 236px; }
+}
+@media (max-width: 600px) {
+  :root { --card-w: 140px; --card-h: 196px; }
 }
