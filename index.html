@@ -1,45 +1,42 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Morgan Peas</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Roboto Light -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Link external stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Header: small image logo + tagline -->
-  <header class="site-header">
-    <img class="header-logo" src="//photo_5.jpg" alt="Morgan Peas">
-    <p class="tagline">is a data analyst and occasional film photographer</p>
-  </header>
+  <main class="site">
+    <header class="site-header">
+      <h1 class="site-title">Morgan Peas</h1>
+      <p class="site-subtitle">is a data analyst and film photographer.</p>
+      <!-- Centered Photo 5 beneath subtitle -->
+      <img class="hero-photo" src="images/photo5.jpg" alt="Photo 5">
+    </header>
 
-  <!-- Optional drawing placeholders (remove or replace with your graphics) -->
-  <div class="doodle top-left" aria-hidden="true"></div>
-  <div class="doodle top-right" aria-hidden="true"></div>
-  <div class="doodle bottom-left" aria-hidden="true"></div>
-  <div class="doodle bottom-right" aria-hidden="true"></div>
-
-  <!-- Collage: 4 images, uneven/off-centered, with overlap -->
-  <main class="collage" aria-label="photo-collage">
-    <!-- Photo 1: vertical, big -->
-    <a class="ph ph1" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="photo_1.jpg" alt="Photography by Morgan Peas 1">
-    </a>
-
-    <!-- Photo 2: horizontal, overlaps photo 3 -->
-    <a class="ph ph2" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="photo_2.jpg" alt="Photography by Morgan Peas 2">
-    </a>
-
-    <!-- Photo 3: vertical, big (under photo 2) -->
-    <a class="ph ph3" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="photo_3.jpg" alt="Photography by Morgan Peas 3">
-    </a>
-
-    <!-- Photo 4: smaller -->
-    <a class="ph ph4" href="https://instagram.com/morganpeas" target="_blank" rel="noopener">
-      <img src="photo_4.jpg" alt="Photography by Morgan Peas 4">
-    </a>
+    <section class="grid">
+      <figure class="photo-1">
+        <img src="images/photo1.jpg" alt="Photo 1">
+      </figure>
+      <figure class="photo-2">
+        <img src="images/photo2.jpg" alt="Photo 2">
+      </figure>
+      <figure class="photo-3">
+        <img src="images/photo3.jpg" alt="Photo 3">
+      </figure>
+      <figure class="photo-4">
+        <img src="images/photo4.jpg" alt="Photo 4">
+      </figure>
+    </section>
   </main>
 </body>
 </html>
