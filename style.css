@@ -5,8 +5,8 @@
   --bg: #dcd2bc;           /* reverted background */
   --text: #111;
   --gutter: 12px;
-  --card-w: 240px;         /* base portrait width */
-  --card-h: 336px;         /* base portrait height */
+  --card-w: 220px;         /* base portrait width */
+  --card-h: 308px;         /* base portrait height */
   --quarter: 92px;
   --radius: 6px;
   --focus: 2px solid #0a66c2;
@@ -98,10 +98,10 @@ html, body {
 }
 
 /* Positions requested */
-.card-1 { top: 35%; left: 35%; }
+.card-1 { top: 30%; left: 35%; }
 .card-2 { top: 48%; left: 40%; }
-.card-3 { top: 59%; left: 69%; }
-.card-4 { top: 52%; left: 59%; }
+.card-3 { top: 30%; left: 69%; }
+.card-4 { top: 48%; left: 59%; }
 
 /* Responsive: scale card variables down on smaller screens (unchanged pattern) */
 @media (max-width: 1200px) {
