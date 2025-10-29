@@ -1,6 +1,6 @@
 /* styles.css */
 :root{
-  --bg: #dcd2bc;     /* background */
+  --bg: #dcd2bc;
   --text: #111;
   --gutter: 16px;
   --card-w: 240px;   /* playing card size */
@@ -15,10 +15,24 @@ html, body {
   font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   font-weight: 300; line-height: 1.4; height: 100%;
   text-align: center;
-  font-size: 12pt; /* base font size */
+  font-size: 12pt;                 /* enforce 12pt base font */
 }
 
 .container, .site { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+/* Ensure SR-only text is truly invisible */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
 /* Skip link */
 .skip-link { position: absolute; left: -9999px; top: -9999px; }
@@ -26,20 +40,18 @@ html, body {
   position: static; margin: 8px; padding: 8px 12px; background: #fff; color: #000; border: 1px solid #000; z-index: 1000;
 }
 
-/* Screen-reader-only content */
-.visually-hidden {
-  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-}
-
-.site-header { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+/* Headings use the same 12pt unless you want larger */
 .site-title { margin: 0; font-size: 12pt; letter-spacing: 0.5px; }
 .site-subtitle { margin: 2px 0 12px 0; font-size: 12pt; opacity: 0.9; }
 
-/* Photo 5: quarter-sized and centered */
+/* Photo 5 strictly sized */
 .hero-photo {
-  width: var(--quarter); height: var(--quarter);
-  display: block; margin: 8px auto 18px auto; object-fit: contain; border: 0;
+  width: var(--quarter) !important;
+  height: var(--quarter) !important;
+  display: block;
+  margin: 8px auto 18px auto;
+  object-fit: contain;
+  border: 0;
 }
 
 /* 3-column layout */
@@ -60,27 +72,28 @@ html, body {
   gap: var(--gutter);
 }
 
-/* Card containers and images */
+/* Card containers: hard size to cap images */
 .card-link {
-  width: var(--card-w);
-  height: var(--card-h);
+  width: var(--card-w) !important;
+  height: var(--card-h) !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: hidden;       /* contain image if it tries to exceed */
   background: transparent;
 }
 
+/* Images: strictly contained, never huge */
 .card-img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 100% !important;
+  max-height: 100% !important;
   width: auto !important;
   height: auto !important;
-  object-fit: contain;
-  transform: none;
-  display: block;
+  object-fit: contain !important;
+  transform: none !important;
+  display: block !important;
 }
 
 /* Focus/hover */
