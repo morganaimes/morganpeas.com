@@ -1,25 +1,23 @@
 /* style.css */
 
-/* Design tokens */
+/* Tokens */
 :root {
   --bg: #dcd2bc;
   --text: #111;
-  --gutter: 12px;
   --card-w: 240px;
   --card-h: 336px;
-  --quarter: 92px;
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 }
 
 /* Base */
 html, body {
+  margin: 0;
+  padding: 0;
   font-size: 12pt;
   background: var(--bg);
   color: var(--text);
   font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
   text-align: center;
 }
 
@@ -27,7 +25,7 @@ html, body {
 .site-title { font-size: 1.125rem; margin: 0 0 2px 0; }
 .site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
 
-/* NEW: Stage with background (photo_5) and overlaid cards (photos_1–4) */
+/* Stage with background */
 .stage {
   position: relative;
   width: 100%;
@@ -35,20 +33,20 @@ html, body {
   overflow: hidden;
 }
 
-/* Make photo_5 the full-bleed background image inside .stage */
+/* photo_5 background */
 .stage .bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* use 'contain' if you must see the entire image without cropping */
+  object-fit: cover;   /* switch to 'contain' if you need full image visible */
   z-index: 0;
   pointer-events: none;
 }
 
-/* Overlaid cards for photos_1–4 */
+/* Overlaid cards (photos 1–4), perfectly straight */
 .card-link {
-  position: absolute;           /* changed from inline-flex to absolute for overlay */
+  position: absolute;
   width: var(--card-w);
   height: var(--card-h);
   display: inline-flex;
@@ -61,7 +59,7 @@ html, body {
   line-height: 0;
   outline: none;
   z-index: 2;
-  transform: translate(-50%, -50%); /* position by center point */
+  transform: translate(-50%, -50%); /* center-based positioning */
 }
 
 .card-link:focus-visible {
@@ -69,42 +67,20 @@ html, body {
   outline-offset: 2px;
 }
 
-/* Image inside the card */
 .card-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* use 'contain' if you don’t want cropping */
+  object-fit: cover; /* use 'contain' to avoid cropping */
 }
 
-/* Position each photo over its drawn number - TWEAK these percentages in DevTools */
-.card-1 { top: 22%; left: 28%; rotate: -3deg; }
-.card-2 { top: 40%; left: 63%; rotate: 2deg; }
-.card-3 { top: 68%; left: 35%; rotate: -1.5deg; }
-.card-4 { top: 72%; left: 75%; rotate: 3deg; }
+/* Positions (adjust top/left to your background) */
+.card-1 { top: 18%; left: 23%; }
+.card-2 { top: 35%; left: 66%; }
+.card-3 { top: 63%; left: 31%; }
+.card-4 { top: 71%; left: 74%; }
 
-/* Optional: small sticker/badge (photo_5 as chip not needed now because it's the background)
-.chip-link { ... }
-.chip-img  { ... }
-*/
-
-/* Visually hidden text for accessibility */
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  clip-path: inset(50%) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-.site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
-
-/* Responsive scaling of card size */
+/* Responsive scaling: scale cards down on smaller screens */
 @media (max-width: 1200px) {
   :root { --card-w: 200px; --card-h: 280px; }
 }
@@ -114,3 +90,6 @@ html, body {
 @media (max-width: 600px) {
   :root { --card-w: 140px; --card-h: 196px; }
 }
+
+/* Footer */
+.site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
