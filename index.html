@@ -67,3 +67,113 @@
   </main>
 </body>
 </html>
+
+/* styles.css */
+:root{
+  --bg: #dcd2bc;
+  --text: #111;
+  --gutter: 16px;
+  --card-w: 240px;   /* playing card size */
+  --card-h: 336px;
+  --quarter: 92px;   /* photo_5 size */
+  --focus: 2px solid #0a66c2;
+}
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--text);
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 300; line-height: 1.4; height: 100%;
+  text-align: center;
+  font-size: 12pt;                 /* enforce 12pt base font */
+}
+
+.container, .site { max-width: 1100px; margin: 0 auto; padding: 16px; }
+
+/* Ensure SR-only text is truly invisible */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Skip link */
+.skip-link { position: absolute; left: -9999px; top: -9999px; }
+.skip-link:focus {
+  position: static; margin: 8px; padding: 8px 12px; background: #fff; color: #000; border: 1px solid #000; z-index: 1000;
+}
+
+/* Headings use the same 12pt unless you want larger */
+.site-title { margin: 0; font-size: 12pt; letter-spacing: 0.5px; }
+.site-subtitle { margin: 2px 0 12px 0; font-size: 12pt; opacity: 0.9; }
+
+/* Photo 5 strictly sized */
+.hero-photo {
+  width: var(--quarter) !important;
+  height: var(--quarter) !important;
+  display: block;
+  margin: 8px auto 18px auto;
+  object-fit: contain;
+  border: 0;
+}
+
+/* 3-column layout */
+.tri-grid {
+  display: grid;
+  grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
+  justify-content: center;
+  align-items: start;
+  gap: var(--gutter);
+  margin-top: 8px;
+}
+
+/* Middle column stacks vertically */
+.middle-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gutter);
+}
+
+/* Card containers: hard size to cap images */
+.card-link {
+  width: var(--card-w) !important;
+  height: var(--card-h) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 6px;
+  overflow: hidden;       /* contain image if it tries to exceed */
+  background: transparent;
+}
+
+/* Images: strictly contained, never huge */
+.card-img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  transform: none !important;
+  display: block !important;
+}
+
+/* Focus/hover */
+a:focus-visible, .card-link:focus-visible, .skip-link:focus-visible {
+  outline: var(--focus); outline-offset: 3px; border-radius: 6px;
+}
+.card-link:hover { filter: brightness(0.98) contrast(1.02); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tri-grid { grid-template-columns: 1fr; }
+  .card-link { margin: 0 auto; }
+}
