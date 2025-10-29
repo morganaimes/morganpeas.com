@@ -1,26 +1,142 @@
 /* style.css */
-:root{
+
+/* Design tokens */
+:root {
   --bg: #dcd2bc;
   --text: #111;
-  --gutter: 12px;       /* was 16px */
+  --gutter: 12px;     /* uniform spacing everywhere */
   --card-w: 240px;
   --card-h: 336px;
-  --quarter: 92px;
+  --quarter: 92px;    /* 92x92 for the small chip image */
+  --radius: 6px;
   --focus: 2px solid #0a66c2;
 }
 
 html, body {
-  margin: 0; padding: 0;
-  background: var(--bg); color: var(--text);
-  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 300; line-height: 1.4; height: 100%;
+  font-size: 12pt; /* enforce 12pt */
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  font-size: 12pt;                 /* enforce 12pt base font */
 }
 
-.container, .site { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.site-header {
+  padding: 12px 10px 4px;
+}
 
-/* Ensure SR-only text is truly invisible */
+.site-title {
+  font-size: 1.125rem;
+  margin: 0 0 2px 0;
+}
+
+.site-subtitle {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Three equal columns with uniform gaps */
+.tri-grid {
+  display: grid;
+  grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
+  gap: var(--gutter);           /* controls horizontal and (if needed) row gaps */
+  justify-content: center;
+  align-items: start;
+  padding: 8px 10px 20px;
+  margin: 0 auto;
+}
+
+/* Each card anchor sized like a playing card */
+.card-link {
+  display: inline-flex;
+  width: var(--card-w) !important;
+  height: var(--card-h) !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius);
+  text-decoration: none;
+  background: transparent;
+  line-height: 0; /* remove inline whitespace */
+  outline: none;
+}
+
+.card-link:focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
+
+/* Image inside the card */
+.card-img {
+  display: block;         /* removes inline-img bottom gap */
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Middle column: strict 12px vertical gap */
+.middle-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gutter);     /* exact 12px between stacked cards */
+}
+
+/* Remove any extra margins on children that could add space */
+.middle-stack > * {
+  margin: 0 !important;
+}
+
+/* Right column container for chip */
+.right-stack {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Position the main right card as the base layer */
+.right-stack > .card-link {
+  position: absolute;
+  inset: 0; /* fill the container */
+}
+
+/* Quarter-sized chip image anchored bottom-right with uniform offsets */
+.chip-link {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  width: var(--quarter);
+  height: var(--quarter);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  text-decoration: none;
+  background: transparent;
+  outline: none;
+}
+
+.chip-link:focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
+
+.chip-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Visually hidden text for accessibility */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -34,84 +150,21 @@ html, body {
   border: 0 !important;
 }
 
-/* Skip link */
-.skip-link { position: absolute; left: -9999px; top: -9999px; }
-.skip-link:focus {
-  position: static; margin: 8px; padding: 8px 12px; background: #fff; color: #000; border: 1px solid #000; z-index: 1000;
+.site-footer {
+  font-size: 0.85rem;
+  padding: 10px;
+  opacity: 0.9;
 }
 
-/* Headings use the same 12pt unless you want larger */
-.site-title { margin: 0; font-size: 12pt; letter-spacing: 0.5px; }
-.site-subtitle { margin: 2px 0 12px 0; font-size: 12pt; opacity: 0.9; }
-
-/* Photo 5 strictly sized */
-.hero-photo {
-  width: var(--quarter) !important;
-  height: var(--quarter) !important;
-  display: block;
-  margin: 8px auto 18px auto;
-  object-fit: contain;
-  border: 0;
-}
-
-/* 3-column layout */
-.tri-grid {
-  display: grid;
-  grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
-  justify-content: center;
-  align-items: start;
-  gap: var(--gutter);   /* stays in sync with middle-stack gap */
-  margin-top: 8px;
-}
-
-/* Middle column stacks vertically */
-.middle-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gutter);   /* matches column gap */
-}
-
-/* Make sure stacked items have no extra margins */
-.middle-stack .card-link,
-.middle-stack .card-img {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0;
-}
-
-/* Card containers: hard size to cap images */
-.card-link {
-  width: var(--card-w) !important;
-  height: var(--card-h) !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-radius: 6px;
-  overflow: hidden;       /* contain image if it tries to exceed */
-  background: transparent;
-}
-
-/* Images: strictly contained, never huge */
-.card-img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
-  transform: none !important;
-  display: block !important;
-}
-
-/* Focus/hover */
-a:focus-visible, .card-link:focus-visible, .skip-link:focus-visible {
-  outline: var(--focus); outline-offset: 3px; border-radius: 6px;
-}
-.card-link:hover { filter: brightness(0.98) contrast(1.02); }
-
-/* Responsive */
+/* Responsive: stack columns on narrow screens */
 @media (max-width: 900px) {
-  .tri-grid { grid-template-columns: 1fr; }
-  .card-link { margin: 0 auto; }
+  .tri-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gutter);
+  }
+  .right-stack {
+    width: var(--card-w);
+    height: var(--card-h);
+    margin: 0 auto;
+  }
 }
