@@ -1,11 +1,11 @@
-/* styles.css */
+/* style.css */
 :root{
   --bg: #dcd2bc;
   --text: #111;
-  --gutter: 16px;
-  --card-w: 240px;   /* playing card size */
+  --gutter: 12px;       /* was 16px */
+  --card-w: 240px;
   --card-h: 336px;
-  --quarter: 92px;   /* photo_5 size */
+  --quarter: 92px;
   --focus: 2px solid #0a66c2;
 }
 
@@ -60,7 +60,7 @@ html, body {
   grid-template-columns: var(--card-w) var(--card-w) var(--card-w);
   justify-content: center;
   align-items: start;
-  gap: var(--gutter);
+  gap: var(--gutter);   /* stays in sync with middle-stack gap */
   margin-top: 8px;
 }
 
@@ -69,7 +69,15 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--gutter);
+  gap: var(--gutter);   /* matches column gap */
+}
+
+/* Make sure stacked items have no extra margins */
+.middle-stack .card-link,
+.middle-stack .card-img {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0;
 }
 
 /* Card containers: hard size to cap images */
