@@ -81,7 +81,7 @@ html, body {
    - photo_3: vertical (portrait)
    - photo_4: keep portrait unless you specify otherwise */
 .card-1 {
-  width: var(--card-w);           /* previous portrait size restored */
+  width: var(--card-w);           /* portrait */
   height: var(--card-h);
 }
 .card-2 {
@@ -93,15 +93,15 @@ html, body {
   height: var(--card-h);
 }
 .card-4 {
-  width: var(--card-w);           /* portrait (adjust if you want landscape) */
-  height: var(--card-h);
+  width: var(--card-h);           /* landscape: widen frame */
+  height: var(--card-w);
 }
 
 /* Positions requested */
-.card-1 { top: 35%; left: 23%; }
-.card-2 { top: 55%; left: 35%; }
-.card-3 { top: 55%; left: 55%; }
-.card-4 { top: 35%; left: 59%; }
+.card-1 { top: 35%; left: 35%; }
+.card-2 { top: 48%; left: 40%; }
+.card-3 { top: 59%; left: 69%; }
+.card-4 { top: 52%; left: 59%; }
 
 /* Responsive: scale card variables down on smaller screens (unchanged pattern) */
 @media (max-width: 1200px) {
