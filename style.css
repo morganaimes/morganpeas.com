@@ -1,9 +1,9 @@
 /* styles.css */
 :root{
-  --bg: #dcd2bc;         /* 1. background color */
+  --bg: #dcd2bc;
   --text: #111;
   --gutter: 1rem;
-  --overlap: 5%;         /* 6. requested overlap */
+  --overlap: 5%;
 }
 
 html, body {
@@ -11,13 +11,13 @@ html, body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* 2. Roboto Light */
-  font-weight: 300;      /* Roboto Light */
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 300; /* Roboto Light */
   line-height: 1.35;
 }
 
 .site {
-  max-width: 1100px;     /* 7. fit on normal desktop */
+  max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 1rem 2rem;
 }
@@ -31,7 +31,7 @@ header.site-header {
 }
 
 .site-title {
-  font-size: clamp(28px, 4vw, 44px); /* 3. Header text only: “Morgan Peas” */
+  font-size: clamp(28px, 4vw, 44px);
   letter-spacing: 0.5px;
   margin: 0;
 }
@@ -42,7 +42,7 @@ header.site-header {
   opacity: 0.85;
 }
 
-/* 4. Photo 5 centered beneath subtitle */
+/* Centered Photo 5 beneath subtitle */
 .hero-photo {
   display: block;
   max-width: 480px;
@@ -51,16 +51,16 @@ header.site-header {
   border: 0;
 }
 
-/* 5. Ensure photos are not cropped or tilted */
+/* Ensure photos are not cropped or tilted */
 img {
   display: block;
   width: 100%;
-  height: auto;        /* prevents cropping */
-  transform: none;     /* prevents tilt */
-  object-fit: contain; /* preserve full image */
+  height: auto;
+  transform: none;
+  object-fit: contain;
 }
 
-/* 7. 4-photo grid; keep all visible without scrolling on common desktops */
+/* 4-photo grid that fits on a normal desktop without scrolling */
 .grid {
   position: relative;
   display: grid;
@@ -75,15 +75,15 @@ img {
   position: relative;
 }
 
-/* 6. Overlaps: 4 over 1 by 5%; 2 over 3 by 5% */
+/* Overlaps: photo 4 over photo 1 by 5%, photo 2 over photo 3 by 5% */
 .photo-4 { margin-left: calc(-1 * var(--overlap)); z-index: 2; }
 .photo-2 { margin-right: calc(-1 * var(--overlap)); z-index: 2; }
 
-/* Control photo height so all 4 fit on a 1080p desktop without scroll */
+/* Keep all 4 visible on typical 1080p screens */
 .grid img {
   max-height: min(22vh, 280px);
-  width: auto;                 /* maintain aspect ratio */
-  margin-inline: auto;         /* center inside figure */
+  width: auto;
+  margin-inline: auto;
 }
 
 /* Responsive tweaks */
@@ -93,7 +93,6 @@ img {
 }
 
 @media (max-width: 900px) {
-  /* Stack to two columns on smaller screens */
   .grid { grid-template-columns: repeat(2, 1fr); }
   .photo-4, .photo-2 { margin: 0; } /* disable overlaps on small screens */
   .grid img { max-height: 220px; }
