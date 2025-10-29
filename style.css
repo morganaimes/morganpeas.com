@@ -76,9 +76,9 @@ html, body {
 
 /* Positions (adjust top/left to your background) */
 .card-1 { top: 18%; left: 23%; }
-.card-2 { top: 35%; left: 66%; }
-.card-3 { top: 63%; left: 31%; }
-.card-4 { top: 71%; left: 74%; }
+.card-2 { top: 35%; left: 35%; }
+.card-3 { top: 63%; left: 75%; }
+.card-4 { top: 18%; left: 59%; }
 
 /* Responsive scaling: scale cards down on smaller screens */
 @media (max-width: 1200px) {
