@@ -7,14 +7,9 @@
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 
-  /* Ratio reference (portrait 240x336) */
-  --base-w: 240; /* unitless for calc */
-  --base-h: 336;
-
-  /* Desktop/tablet sizing caps (apply 10% reduction vs previous) */
-  --maxW: 180px;   /* was 200px → 10% smaller */
-  --minW: 72px;    /* was 80px → 10% smaller floor */
-  --vwPortrait: 12.6vw; /* was 14vw → ~10% smaller fluid factor */
+  /* Portrait reference (for optional calc usage) */
+  --base-w: 240px;
+  --base-h: 336px;
 }
 
 /* Base */
@@ -34,7 +29,7 @@ html, body {
 .site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
 .site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
 
-/* Stage with full-screen background */
+/* Stage with full-screen background (photo_5 shows fully) */
 .stage {
   position: relative;
   width: 100vw;
@@ -42,20 +37,18 @@ html, body {
   overflow: hidden;
   margin: 0;
 }
-
-/* Background (photo_5) shows fully without cropping */
 .stage .bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain;   /* show entire image; change to cover if you prefer fill with crop */
   background: var(--bg);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Overlaid cards (photos 1–4) */
+/* Overlaid cards */
 .card-link {
   position: absolute;
   display: inline-flex;
@@ -68,72 +61,50 @@ html, body {
   line-height: 0;
   outline: none;
   z-index: 2;
-  transform: translate(-50%, -50%); /* center-based positioning */
+  transform: translate(-50%, -50%); /* position by center point */
 }
-
 .card-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* change to contain per-card if needed */
+  object-fit: cover;  /* switch per-card to contain if you want zero crop */
 }
 
-/* Orientation mapping with fluid sizing (desktop/tablet defaults with 10% reduction) */
-.card-1, .card-3 { /* portrait */
-  width: clamp(var(--minW), var(--vwPortrait), var(--maxW));
-  height: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwPortrait), var(--maxW)));
+/* Orientation mapping (default sizes for mobile/tablet/laptop <= 1199px)
+   Portrait: card-1, card-3; Landscape: card-2, card-4 */
+.card-1, .card-3 { /* portrait default */
+  width: 144px;   /* tweak as desired for non-desktop */
+  height: 202px;
 }
-.card-2, .card-4 { /* landscape */
-  width: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwPortrait), var(--maxW)));
-  height: clamp(var(--minW), var(--vwPortrait), var(--maxW));
+.card-2, .card-4 { /* landscape default */
+  width: 202px;
+  height: 144px;
 }
 
-/* Desktop/tablet positions */
+/* Desktop-only: 40% smaller than your previous desktop (scale to 60%) */
+@media (min-width: 1200px) {
+  .card-1, .card-3 { /* portrait on desktop */
+    width: 144px;   /* 240 * 0.60 = 144 */
+    height: 202px;  /* 336 * 0.60 = 202 */
+  }
+  .card-2, .card-4 { /* landscape on desktop */
+    width: 202px;   /* 336 * 0.60 = 202 */
+    height: 144px;  /* 240 * 0.60 = 144 */
+  }
+}
+
+/* Positions (desktop/tablet/laptop) */
 .card-1 { top: 30%; left: 35%; }
 .card-2 { top: 48%; left: 45%; }
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 58%; }
 
-/* Laptop/tablet tuning (optional slight shrink) */
-@media (max-width: 1200px) {
-  :root { --vwPortrait: 11.5vw; --maxW: 170px; }
-}
-@media (max-width: 900px) {
-  :root { --vwPortrait: 16vw; --maxW: 140px; }
-}
-
-/* Phones — tiny sizes + position changes for photo_1 and photo_3 */
+/* Optional: Mobile-specific position tweaks used previously
 @media (max-width: 600px) {
-  /* “Tictac” small sizes */
-  .card-1, .card-3 {
-    width: clamp(40px, 10vw, 55px);
-    height: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
-  }
-  .card-2, .card-4 {
-    width: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
-    height: clamp(40px, 10vw, 55px);
-  }
-  .card-link { border-radius: 4px; }
-
-  /* MOBILE positions override: move photo_1 and photo_3 down to 50% top */
-  .card-1 { top: 50%; left: 35%; } /* moved down */
-  .card-3 { top: 50%; left: 69%; } /* moved down */
-  /* Keep 2 and 4 as-is unless you want changes too */
-  .card-2 { top: 48%; left: 45%; }
-  .card-4 { top: 48%; left: 58%; }
+  .card-1 { top: 50%; left: 35%; }
+  .card-3 { top: 50%; left: 69%; }
 }
-
-/* Tiny phones */
-@media (max-width: 380px) {
-  .card-1, .card-3 {
-    width: clamp(32px, 9vw, 44px);
-    height: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
-  }
-  .card-2, .card-4 {
-    width: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
-    height: clamp(32px, 9vw, 44px);
-  }
-}
+*/
 
 /* Screen-reader-only helper */
 .visually-hidden {
