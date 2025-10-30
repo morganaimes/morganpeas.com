@@ -1,20 +1,20 @@
 /* style.css */
 
-/* Design tokens */
+/* Tokens */
 :root {
   --bg: #dcd2bc;
   --text: #111;
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 
-  /* Base portrait ratio reference (240x336) for math */
+  /* Ratio reference (portrait 240x336) */
   --base-w: 240; /* unitless for calc */
   --base-h: 336;
 
-  /* Fluid portrait width caps (desktop/tablet) */
-  --maxW: 200px;  /* desktop cap */
-  --minW: 80px;   /* general floor */
-  --vwPortrait: 14vw; /* desktop/tablet fluid width */
+  /* Desktop/tablet sizing caps (apply 10% reduction vs previous) */
+  --maxW: 180px;   /* was 200px → 10% smaller */
+  --minW: 72px;    /* was 80px → 10% smaller floor */
+  --vwPortrait: 12.6vw; /* was 14vw → ~10% smaller fluid factor */
 }
 
 /* Base */
@@ -75,11 +75,10 @@ html, body {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* use contain per-card if you want zero crop */
+  object-fit: cover; /* change to contain per-card if needed */
 }
 
-/* Orientation mapping with fluid sizing
-   Portrait (1,3) and Landscape (2,4) maintain ratio */
+/* Orientation mapping with fluid sizing (desktop/tablet defaults with 10% reduction) */
 .card-1, .card-3 { /* portrait */
   width: clamp(var(--minW), var(--vwPortrait), var(--maxW));
   height: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwPortrait), var(--maxW)));
@@ -89,24 +88,23 @@ html, body {
   height: clamp(var(--minW), var(--vwPortrait), var(--maxW));
 }
 
-/* Positions (updated) */
+/* Desktop/tablet positions */
 .card-1 { top: 30%; left: 35%; }
 .card-2 { top: 48%; left: 45%; }
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 58%; }
 
-/* Laptop/tablet tuning */
+/* Laptop/tablet tuning (optional slight shrink) */
 @media (max-width: 1200px) {
-  :root { --vwPortrait: 12vw; --maxW: 180px; }
+  :root { --vwPortrait: 11.5vw; --maxW: 170px; }
 }
 @media (max-width: 900px) {
-  :root { --vwPortrait: 18vw; --maxW: 150px; }
+  :root { --vwPortrait: 16vw; --maxW: 140px; }
 }
 
-/* Phones — make cards “tictac” small */
+/* Phones — tiny sizes + position changes for photo_1 and photo_3 */
 @media (max-width: 600px) {
-  /* Ultra-small portrait width range */
-  :root { --minW: 40px; } /* allow very tiny */
+  /* “Tictac” small sizes */
   .card-1, .card-3 {
     width: clamp(40px, 10vw, 55px);
     height: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
@@ -115,7 +113,14 @@ html, body {
     width: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
     height: clamp(40px, 10vw, 55px);
   }
-  .card-link { border-radius: 4px; } /* less rounded at tiny size */
+  .card-link { border-radius: 4px; }
+
+  /* MOBILE positions override: move photo_1 and photo_3 down to 50% top */
+  .card-1 { top: 50%; left: 35%; } /* moved down */
+  .card-3 { top: 50%; left: 69%; } /* moved down */
+  /* Keep 2 and 4 as-is unless you want changes too */
+  .card-2 { top: 48%; left: 45%; }
+  .card-4 { top: 48%; left: 58%; }
 }
 
 /* Tiny phones */
