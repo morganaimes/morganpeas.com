@@ -70,6 +70,42 @@ html, body {
   transform-origin: center center;
 }
 
+/* Tablets */
+@media (max-width: 900px) {
+  .card-1, .card-3 {
+    width: clamp(95px, 18vw, 160px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(95px, 18vw, 160px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(95px, 18vw, 160px));
+    height: clamp(95px, 18vw, 160px);
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .card-1, .card-3 {
+    width: clamp(80px, 22vw, 130px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(80px, 22vw, 130px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(80px, 22vw, 130px));
+    height: clamp(80px, 22vw, 130px);
+  }
+}
+
+/* Tiny phones (optional, even smaller) */
+@media (max-width: 380px) {
+  .card-1, .card-3 {
+    width: clamp(70px, 24vw, 120px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(70px, 24vw, 120px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(70px, 24vw, 120px));
+    height: clamp(70px, 24vw, 120px);
+  }
+}
+
 /* Keep images filling their frames (switch to contain per card if you want zero crop) */
 .card-img {
   display: block;
