@@ -92,10 +92,10 @@ html, body {
 }
 
 /* Positions */
-.card-1 { top: 30%; left: 30%; }
-.card-2 { top: 48%; left: 40%; }
+.card-1 { top: 30%; left: 35%; }
+.card-2 { top: 48%; left: 45%; }
 .card-3 { top: 30%; left: 69%; }
-.card-4 { top: 48%; left: 55%; }
+.card-4 { top: 48%; left: 60%; }
 
 /* Visually hidden (screen-reader-only) */
 .visually-hidden {
