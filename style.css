@@ -115,8 +115,8 @@ html, body {
   .card-link { border-radius: 4px; }
 
   /* If you previously wanted 1 and 3 lower on mobile, keep these: */
-   .card-1 { top: 50%; left: 35%; }
-   .card-3 { top: 50%; left: 69%; } */
+   .card-1 { top: 65%; left: 35%; }
+   .card-3 { top: 65%; left: 68%; } */
 }
 
 /* Tiny phones — even smaller */
