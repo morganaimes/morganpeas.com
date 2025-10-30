@@ -1,18 +1,25 @@
-/* Keep your existing tokens/colors/fonts as-is */
+/* style.css */
+
+/* Design tokens */
 :root {
   --bg: #dcd2bc;
   --text: #111;
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 
-  /* Reference portrait ratio (240x336) for calculations */
-  --base-w: 240;
-  --base-h: 336;
+  /* Base portrait ratio reference (used for math) */
+  --base-w: 240px; /* portrait width reference */
+  --base-h: 336px; /* portrait height reference */
+
+  /* Global scale (50% of current) */
+  --scale: 0.5;
 }
 
+/* Base */
 html, body {
   height: 100%;
   margin: 0;
+  padding: 0;
   font-size: 12pt;
   background: var(--bg);
   color: var(--text);
@@ -20,24 +27,33 @@ html, body {
   text-align: center;
 }
 
+.site-header { padding: 12px 10px 4px; position: relative; z-index: 3; }
+.site-title { font-size: 1.125rem; margin: 0 0 2px 0; }
+.site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
+.site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
+
+/* Stage: full-screen with background (photo_5) fully visible */
 .stage {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  margin: 0;
 }
+
+/* photo_5 as background (no cropping). If you prefer fill with crop, change to object-fit: cover */
 .stage .bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* full image visible */
+  object-fit: contain;
   background: var(--bg);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Cards: remove any fixed width/height rules from elsewhere */
+/* Overlaid cards (photos 1–4) */
 .card-link {
   position: absolute;
   display: inline-flex;
@@ -50,8 +66,11 @@ html, body {
   line-height: 0;
   outline: none;
   z-index: 2;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* center-based positioning */
+  transform-origin: center center;
 }
+
+/* Keep images filling their frames (switch to contain per card if you want zero crop) */
 .card-img {
   display: block;
   width: 100%;
@@ -59,24 +78,17 @@ html, body {
   object-fit: cover;
 }
 
-/* FLUID SIZING (single source of truth):
-   - Uses clamp(min, vw, max) so sizes shrink on laptops/phones automatically.
-   - Portrait cards (1,3): width = W; height keeps ratio = (base_h/base_w)*W
-   - Landscape cards (2,4): swap width/height for ratio */
-:root {
-  --minW: 90px;    /* smallest portrait width on small phones */
-  --vwW: 18vw;     /* fluid portion (lower = smaller on small screens) */
-  --maxW: 220px;   /* cap on desktop for portrait cards */
-}
-
+/* Orientation mapping with TRUE 50% size reduction:
+   - Portrait cards (1,3): 50% of base portrait size
+   - Landscape cards (2,4): swap width/height, also 50%
+   Clickable area matches visual size (no transform scaling used) */
 .card-1, .card-3 { /* portrait */
-  width: clamp(var(--minW), var(--vwW), var(--maxW));
-  height: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwW), var(--maxW)));
+  width: calc(var(--base-w) * var(--scale));          /* 240px * 0.5 = 120px */
+  height: calc(var(--base-h) * var(--scale));         /* 336px * 0.5 = 168px */
 }
-
-.card-2, .card-4 { /* landscape (swap ratio) */
-  width: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwW), var(--maxW)));
-  height: clamp(var(--minW), var(--vwW), var(--maxW));
+.card-2, .card-4 { /* landscape */
+  width: calc(var(--base-h) * var(--scale));          /* 336px * 0.5 = 168px */
+  height: calc(var(--base-w) * var(--scale));         /* 240px * 0.5 = 120px */
 }
 
 /* Positions */
@@ -85,7 +97,7 @@ html, body {
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 55%; }
 
-/* Visually hidden */
+/* Visually hidden (screen-reader-only) */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -97,4 +109,12 @@ html, body {
   clip-path: inset(50%) !important;
   border: 0 !important;
   white-space: nowrap !important;
+}
+
+/* Accessible skip link */
+.skip-link {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+}
+.skip-link:focus {
+  position: static; width: auto; height: auto; padding: 8px 12px; background: #fff; color: #000; z-index: 4;
 }
