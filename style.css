@@ -1,18 +1,19 @@
-/* style.css */
+/* style.css — cleaned up and correct */
 
-/* Design tokens (unchanged from your earlier setup) */
+/* Design tokens */
 :root {
-  --bg: #dcd2bc;           /* reverted background */
+  --bg: #dcd2bc;
   --text: #111;
   --gutter: 12px;
-  --card-w: 220px;         /* base portrait width */
-  --card-h: 308px;         /* base portrait height */
-  --quarter: 92px;
+  --card-w: 220px;  /* portrait base */
+  --card-h: 308px;  /* portrait base */
+  --base-w: 240px;  /* clamp reference portrait width */
+  --base-h: 336px;  /* clamp reference portrait height */
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 }
 
-/* Base (reverted font family) */
+/* Base */
 html, body {
   font-size: 12pt;
   background: var(--bg);
@@ -24,13 +25,13 @@ html, body {
   height: 100%;
 }
 
-/* Header/footer (unchanged) */
+/* Header/footer */
 .site-header { padding: 12px 10px 4px; }
 .site-title { font-size: 1.125rem; margin: 0 0 2px 0; }
 .site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
 .site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
 
-/* Stage: full screen, keep background fully visible (no crop) */
+/* Stage */
 .stage {
   position: relative;
   width: 100vw;
@@ -39,19 +40,19 @@ html, body {
   margin: 0;
 }
 
-/* photo_5 background fills screen without cropping */
+/* Background (photo_5) fully visible */
 .stage .bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;     /* show full image */
-  background: var(--bg);   /* behind any letterboxing */
+  object-fit: contain;
+  background: var(--bg);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Overlaid cards (photos 1–4), straight and centered by position */
+/* Cards (photos 1–4) */
 .card-link {
   position: absolute;
   display: inline-flex;
@@ -67,54 +68,53 @@ html, body {
   transform: translate(-50%, -50%);
 }
 
-/* Default image behavior */
 .card-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* change to 'contain' per photo if you want zero crop */
+  object-fit: cover; /* use contain per-card if needed */
 }
 
-/* Sizing:
-   - photo_1: revert to your previous size (base portrait card size)
-   - photo_2: horizontal (landscape frame)
-   - photo_3: vertical (portrait)
-   - photo_4: keep portrait unless you specify otherwise */
-.card-1 {
-  width: var(--card-w);           /* portrait */
-  height: var(--card-h);
+/* Orientation mapping: 1 & 3 portrait, 2 & 4 landscape
+   Use clamp-only sizing to avoid conflicts with fixed sizes above */
+.card-1, .card-3 { /* portrait */
+  width: clamp(90px, 28vw, var(--base-w));
+  height: calc(var(--base-h) / var(--base-w) * clamp(90px, 28vw, var(--base-w)));
 }
-.card-2 {
-  width: var(--card-h);           /* landscape: widen frame */
-  height: var(--card-w);
+.card-2, .card-4 { /* landscape */
+  width: calc(var(--base-h) / var(--base-w) * clamp(90px, 28vw, var(--base-w)));
+  height: clamp(90px, 28vw, var(--base-w));
 }
-.card-3 {
-  width: var(--card-w);           /* portrait */
-  height: var(--card-h);
+
+/* Optional tighter sizes on mid/large screens */
+@media (min-width: 900px) {
+  .card-1, .card-3 {
+    width: clamp(130px, 13vw, 220px);
+    height: calc(var(--base-h) / var(--base-w) * clamp(130px, 13vw, 220px));
+  }
+  .card-2, .card-4 {
+    width: calc(var(--base-h) / var(--base-w) * clamp(130px, 13vw, 220px));
+    height: clamp(130px, 13vw, 220px);
+  }
 }
-.card-4 {
-  width: var(--card-h);           /* landscape: widen frame */
-  height: var(--card-w);
+@media (min-width: 1200px) {
+  .card-1, .card-3 {
+    width: clamp(150px, 15vw, var(--base-w));
+    height: calc(var(--base-h) / var(--base-w) * clamp(150px, 15vw, var(--base-w)));
+  }
+  .card-2, .card-4 {
+    width: calc(var(--base-h) / var(--base-w) * clamp(150px, 15vw, var(--base-w)));
+    height: clamp(150px, 15vw, var(--base-w));
+  }
 }
 
 /* Positions requested */
-.card-1 { top: 30%; left: 35%; }
-.card-2 { top: 48%; left: 40%; }
+.card-1 { top: 30%; left: 30%; }
+.card-2 { top: 48%; left: 48%; }
 .card-3 { top: 30%; left: 69%; }
-.card-4 { top: 48%; left: 59%; }
+.card-4 { top: 48%; left: 55%; }
 
-/* Responsive: scale card variables down on smaller screens (unchanged pattern) */
-@media (max-width: 1200px) {
-  :root { --card-w: 200px; --card-h: 280px; }
-}
-@media (max-width: 900px) {
-  :root { --card-w: 168px; --card-h: 236px; }
-}
-@media (max-width: 600px) {
-  :root { --card-w: 140px; --card-h: 196px; }
-}
-
-/* Visually hidden utility (ensure hidden content is not visible) */
+/* Visually hidden utility */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -128,7 +128,7 @@ html, body {
   white-space: nowrap !important;
 }
 
-/* Optional: accessible skip link */
+/* Skip link */
 .skip-link {
   position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
 }
