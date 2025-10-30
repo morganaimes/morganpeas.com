@@ -7,12 +7,14 @@
   --radius: 6px;
   --focus: 2px solid #0a66c2;
 
-  /* Base portrait ratio reference (used for math) */
-  --base-w: 240px; /* portrait width reference */
-  --base-h: 336px; /* portrait height reference */
+  /* Base portrait ratio reference (240x336) for math */
+  --base-w: 240; /* unitless for calc */
+  --base-h: 336;
 
-  /* Global scale (50% of current) */
-  --scale: 0.5;
+  /* Fluid portrait width caps (desktop/tablet) */
+  --maxW: 200px;  /* desktop cap */
+  --minW: 80px;   /* general floor */
+  --vwPortrait: 14vw; /* desktop/tablet fluid width */
 }
 
 /* Base */
@@ -32,7 +34,7 @@ html, body {
 .site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
 .site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
 
-/* Stage: full-screen with background (photo_5) fully visible */
+/* Stage with full-screen background */
 .stage {
   position: relative;
   width: 100vw;
@@ -41,7 +43,7 @@ html, body {
   margin: 0;
 }
 
-/* photo_5 as background (no cropping). If you prefer fill with crop, change to object-fit: cover */
+/* Background (photo_5) shows fully without cropping */
 .stage .bg {
   position: absolute;
   inset: 0;
@@ -67,73 +69,68 @@ html, body {
   outline: none;
   z-index: 2;
   transform: translate(-50%, -50%); /* center-based positioning */
-  transform-origin: center center;
 }
 
-/* Tablets */
-@media (max-width: 900px) {
-  .card-1, .card-3 {
-    width: clamp(95px, 18vw, 160px);
-    height: calc((var(--base-h) / var(--base-w)) * clamp(95px, 18vw, 160px));
-  }
-  .card-2, .card-4 {
-    width: calc((var(--base-h) / var(--base-w)) * clamp(95px, 18vw, 160px));
-    height: clamp(95px, 18vw, 160px);
-  }
-}
-
-/* Phones */
-@media (max-width: 600px) {
-  .card-1, .card-3 {
-    width: clamp(80px, 22vw, 130px);
-    height: calc((var(--base-h) / var(--base-w)) * clamp(80px, 22vw, 130px));
-  }
-  .card-2, .card-4 {
-    width: calc((var(--base-h) / var(--base-w)) * clamp(80px, 22vw, 130px));
-    height: clamp(80px, 22vw, 130px);
-  }
-}
-
-/* Tiny phones (optional, even smaller) */
-@media (max-width: 380px) {
-  .card-1, .card-3 {
-    width: clamp(70px, 24vw, 120px);
-    height: calc((var(--base-h) / var(--base-w)) * clamp(70px, 24vw, 120px));
-  }
-  .card-2, .card-4 {
-    width: calc((var(--base-h) / var(--base-w)) * clamp(70px, 24vw, 120px));
-    height: clamp(70px, 24vw, 120px);
-  }
-}
-
-/* Keep images filling their frames (switch to contain per card if you want zero crop) */
 .card-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* use contain per-card if you want zero crop */
 }
 
-/* Orientation mapping with TRUE 50% size reduction:
-   - Portrait cards (1,3): 50% of base portrait size
-   - Landscape cards (2,4): swap width/height, also 50%
-   Clickable area matches visual size (no transform scaling used) */
+/* Orientation mapping with fluid sizing
+   Portrait (1,3) and Landscape (2,4) maintain ratio */
 .card-1, .card-3 { /* portrait */
-  width: calc(var(--base-w) * var(--scale));          /* 240px * 0.5 = 120px */
-  height: calc(var(--base-h) * var(--scale));         /* 336px * 0.5 = 168px */
+  width: clamp(var(--minW), var(--vwPortrait), var(--maxW));
+  height: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwPortrait), var(--maxW)));
 }
 .card-2, .card-4 { /* landscape */
-  width: calc(var(--base-h) * var(--scale));          /* 336px * 0.5 = 168px */
-  height: calc(var(--base-w) * var(--scale));         /* 240px * 0.5 = 120px */
+  width: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwPortrait), var(--maxW)));
+  height: clamp(var(--minW), var(--vwPortrait), var(--maxW));
 }
 
-/* Positions */
+/* Positions (updated) */
 .card-1 { top: 30%; left: 35%; }
 .card-2 { top: 48%; left: 45%; }
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 58%; }
 
-/* Visually hidden (screen-reader-only) */
+/* Laptop/tablet tuning */
+@media (max-width: 1200px) {
+  :root { --vwPortrait: 12vw; --maxW: 180px; }
+}
+@media (max-width: 900px) {
+  :root { --vwPortrait: 18vw; --maxW: 150px; }
+}
+
+/* Phones — make cards “tictac” small */
+@media (max-width: 600px) {
+  /* Ultra-small portrait width range */
+  :root { --minW: 40px; } /* allow very tiny */
+  .card-1, .card-3 {
+    width: clamp(40px, 10vw, 55px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
+    height: clamp(40px, 10vw, 55px);
+  }
+  .card-link { border-radius: 4px; } /* less rounded at tiny size */
+}
+
+/* Tiny phones */
+@media (max-width: 380px) {
+  .card-1, .card-3 {
+    width: clamp(32px, 9vw, 44px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
+    height: clamp(32px, 9vw, 44px);
+  }
+}
+
+/* Screen-reader-only helper */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
