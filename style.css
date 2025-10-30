@@ -1,58 +1,43 @@
-/* style.css — cleaned up and correct */
-
-/* Design tokens */
+/* Keep your existing tokens/colors/fonts as-is */
 :root {
   --bg: #dcd2bc;
   --text: #111;
-  --gutter: 12px;
-  --card-w: 220px;  /* portrait base */
-  --card-h: 308px;  /* portrait base */
-  --base-w: 240px;  /* clamp reference portrait width */
-  --base-h: 336px;  /* clamp reference portrait height */
   --radius: 6px;
   --focus: 2px solid #0a66c2;
+
+  /* Reference portrait ratio (240x336) for calculations */
+  --base-w: 240;
+  --base-h: 336;
 }
 
-/* Base */
 html, body {
+  height: 100%;
+  margin: 0;
   font-size: 12pt;
   background: var(--bg);
   color: var(--text);
   font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
   text-align: center;
-  height: 100%;
 }
 
-/* Header/footer */
-.site-header { padding: 12px 10px 4px; }
-.site-title { font-size: 1.125rem; margin: 0 0 2px 0; }
-.site-subtitle { font-size: 0.9rem; margin: 0; opacity: 0.9; }
-.site-footer { font-size: 0.85rem; padding: 10px; opacity: 0.9; }
-
-/* Stage */
 .stage {
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  margin: 0;
 }
-
-/* Background (photo_5) fully visible */
 .stage .bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* full image visible */
   background: var(--bg);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Cards (photos 1–4) */
+/* Cards: remove any fixed width/height rules from elsewhere */
 .card-link {
   position: absolute;
   display: inline-flex;
@@ -67,54 +52,40 @@ html, body {
   z-index: 2;
   transform: translate(-50%, -50%);
 }
-
 .card-img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* use contain per-card if needed */
+  object-fit: cover;
 }
 
-/* Orientation mapping: 1 & 3 portrait, 2 & 4 landscape
-   Use clamp-only sizing to avoid conflicts with fixed sizes above */
+/* FLUID SIZING (single source of truth):
+   - Uses clamp(min, vw, max) so sizes shrink on laptops/phones automatically.
+   - Portrait cards (1,3): width = W; height keeps ratio = (base_h/base_w)*W
+   - Landscape cards (2,4): swap width/height for ratio */
+:root {
+  --minW: 90px;    /* smallest portrait width on small phones */
+  --vwW: 18vw;     /* fluid portion (lower = smaller on small screens) */
+  --maxW: 220px;   /* cap on desktop for portrait cards */
+}
+
 .card-1, .card-3 { /* portrait */
-  width: clamp(90px, 28vw, var(--base-w));
-  height: calc(var(--base-h) / var(--base-w) * clamp(90px, 28vw, var(--base-w)));
-}
-.card-2, .card-4 { /* landscape */
-  width: calc(var(--base-h) / var(--base-w) * clamp(90px, 28vw, var(--base-w)));
-  height: clamp(90px, 28vw, var(--base-w));
+  width: clamp(var(--minW), var(--vwW), var(--maxW));
+  height: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwW), var(--maxW)));
 }
 
-/* Optional tighter sizes on mid/large screens */
-@media (min-width: 900px) {
-  .card-1, .card-3 {
-    width: clamp(130px, 13vw, 220px);
-    height: calc(var(--base-h) / var(--base-w) * clamp(130px, 13vw, 220px));
-  }
-  .card-2, .card-4 {
-    width: calc(var(--base-h) / var(--base-w) * clamp(130px, 13vw, 220px));
-    height: clamp(130px, 13vw, 220px);
-  }
-}
-@media (min-width: 1200px) {
-  .card-1, .card-3 {
-    width: clamp(150px, 15vw, var(--base-w));
-    height: calc(var(--base-h) / var(--base-w) * clamp(150px, 15vw, var(--base-w)));
-  }
-  .card-2, .card-4 {
-    width: calc(var(--base-h) / var(--base-w) * clamp(150px, 15vw, var(--base-w)));
-    height: clamp(150px, 15vw, var(--base-w));
-  }
+.card-2, .card-4 { /* landscape (swap ratio) */
+  width: calc((var(--base-h) / var(--base-w)) * clamp(var(--minW), var(--vwW), var(--maxW)));
+  height: clamp(var(--minW), var(--vwW), var(--maxW));
 }
 
-/* Positions requested */
+/* Positions */
 .card-1 { top: 30%; left: 30%; }
-.card-2 { top: 48%; left: 48%; }
+.card-2 { top: 48%; left: 40%; }
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 55%; }
 
-/* Visually hidden utility */
+/* Visually hidden */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -126,12 +97,4 @@ html, body {
   clip-path: inset(50%) !important;
   border: 0 !important;
   white-space: nowrap !important;
-}
-
-/* Skip link */
-.skip-link {
-  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
-}
-.skip-link:focus {
-  position: static; width: auto; height: auto; padding: 8px 12px; background: #fff; color: #000; z-index: 4;
 }
