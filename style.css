@@ -84,12 +84,12 @@ html, body {
 /* Desktop-only: 40% smaller than your previous desktop (scale to 60%) */
 @media (min-width: 1200px) {
   .card-1, .card-3 { /* portrait on desktop */
-    width: 144px;   /* 240 * 0.60 = 144 */
-    height: 202px;  /* 336 * 0.60 = 202 */
+    width: 120px;   /* 240 * 0.50 = 120 */
+    height: 168px;  /* 336 * 0.50 = 168 */
   }
   .card-2, .card-4 { /* landscape on desktop */
-    width: 202px;   /* 336 * 0.60 = 202 */
-    height: 144px;  /* 240 * 0.60 = 144 */
+    width: 168px;   /* 336 * 0.50 = 168 */
+    height: 120px;   /* 240 * 0.50 = 120 */
   }
 }
 
@@ -99,10 +99,36 @@ html, body {
 .card-3 { top: 30%; left: 69%; }
 .card-4 { top: 48%; left: 58%; }
 
-/* Optional: Mobile-specific position tweaks used previously
+}
+
+/* Phones — “tictac” tiny sizes + optional mobile position changes */
 @media (max-width: 600px) {
-  .card-1 { top: 50%; left: 35%; }
-  .card-3 { top: 50%; left: 69%; }
+  /* make them very small on phones */
+  .card-1, .card-3 {
+    width: clamp(40px, 10vw, 55px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(40px, 10vw, 55px));
+    height: clamp(40px, 10vw, 55px);
+  }
+  .card-link { border-radius: 4px; }
+
+  /* If you previously wanted 1 and 3 lower on mobile, keep these: */
+   .card-1 { top: 50%; left: 35%; }
+   .card-3 { top: 50%; left: 69%; } */
+}
+
+/* Tiny phones — even smaller */
+@media (max-width: 380px) {
+  .card-1, .card-3 {
+    width: clamp(32px, 9vw, 44px);
+    height: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
+  }
+  .card-2, .card-4 {
+    width: calc((var(--base-h) / var(--base-w)) * clamp(32px, 9vw, 44px));
+    height: clamp(32px, 9vw, 44px);
+  }
 }
 */
 
